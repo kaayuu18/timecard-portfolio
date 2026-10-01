@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- 従業員IDと打刻操作を送信し、今日の出勤者を表示する。 -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" th:href="@{./css/timecard.css}">
+        <!-- <link rel="stylesheet" href="../static/css/timecard.css"> -->
+        
+        <title>タイムカード</title>
+        <script src="../js/clock.js"></script>
+    </head>
+    <body>
+            
+          <div class="main">
+            <div class="nav">
+              <a th:href="@{http://localhost:8080/admin/employee-list}" class="link">管理者ページ</a><br>
+              <a th:href="@{http://localhost:8080/employee/form}" class="link">シフト/勤怠記録確認</a>
+            </div>
+        
+                  <div> 
+                      <h2 id ="view_date" class="date">0/0</h2>
+                      <h1 id ="view_clock" class="clock">00:00</h1>
+                  </div>
+            <div class="timecard"> 
+                <form th:action="@{/timecard}" id="kintai" method="post" th:object="${kintai}" class="timecardform">
+                  <div class="timecard-input">
+                      <input type="number" name="person" id ="person" th:value="*{person}" placeholder="idを入力してください" class="form-id" required><br>
+                      <div th:if="${#fields.hasErrors('person')}" th:errors="*{person}" id = "person" class="error"></div>
+                      <div th:text="${personerror}" class="error"></div>
+                  </div>
+                  <div th:text="${kintaierror}" class="error"></div>
+                  <div class="btn">
+                      <button  type="submit" id="out" name="action" value = "out" class="out">退勤</button>
+                      <button  type="submit" id="go"  name="action"  value = "go" class="go">出勤</button>
+                      <button type="submit" name="action" value="breakstart" class="breakstart">休憩</button>
+                      <button type="submit" name="action" value="breakend" class="breakend">戻り</button>
+                  </div>
+                </form>
+            </div>
+            <div class="kintailist">
+            <table class="table">
+                <thead>
+                    <tr><th class="top-left">従業員ID</th><th>名前</th><th>出勤</th><th>退勤</th><th>休憩</th><th class="top-right">戻り</th></tr>
+                </thead>
+              <tbody>
+                  <tr th:each="item : ${kintaitoday}">
+                    <td th:text="${item.person.id}"></td>
+                    <td th:text="${item.person.name}"></td>
+                    <td th:text="${#temporals.format(item.go,'HH:mm')}"></td>
+                    <td th:text="${#temporals.format(item.out,'HH:mm')}"></td>
+                    <td th:text="${#temporals.format(item.breakStartTime,'HH:mm')}"></td>
+                    <td th:text="${#temporals.format(item.breakEndTime,'HH:mm')}"></td>
+                  </tr>
+               </tbody>
+            </table>
+            </div>
+              
+          </div>
+    </body>
+</html>

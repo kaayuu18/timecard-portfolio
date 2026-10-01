@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" th:href="@{/css/calendar.css}">
+        <title>カレンダー</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="nav">
+                    <a th:href="@{http://localhost:8080/timecard}" class ="link">タイムカード</a>
+                    <a th:href="@{http://localhost:8080/admin/employee-list}" class="link">従業員一覧</a>
+                    <form th:action="@{/logout}" method="post" class="logout-form">
+                        <button type="submit" name="logout" class="logout-button"> ログアウト</button>
+                    </form>
+            </div>
+        <div class="select-form">
+            <form th:action="@{/admin/calendar}" method="Get">
+                <input type="month" name = "month" class="month">
+                <button type="submit" class="select-button">表示</button>
+            </form>
+        </div>
+        <form th:action="@{/dayClick}" method="get" class="calendar-form">
+            <input type="hidden" name="month" th:value="${month}">
+            <h1 name = "month" th:text="${month} + 月"></h1>
+            <table aria-label="月間カレンダー">
+            <thead>
+                <tr>
+                    <th>日曜日</th><th>月曜日</th><th>火曜日</th><th>水曜日</th><th>木曜日</th><th>金曜日</th><th>土曜日</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><button th:text="${day1}" name="day" th:value="${day1}" class="holiday"></button></td>
+                    <td><button th:text="${day2}" name="day" th:value="${day2}"></button></td>
+                    <td><button th:text="${day3}" name="day" th:value="${day3}"></button></td>
+                    <td><button th:text="${day4}" name="day" th:value="${day4}"></button></td>
+                    <td><button th:text="${day5}" name="day" th:value="${day5}"></button></td>
+                    <td><button th:text="${day6}" name="day" th:value="${day6}"></button></td>
+                    <td><button th:text="${day7}" name="day" th:value="${day7}" class="holiday"></button></td>
+                </tr>
+                <tr>
+                    <td><button th:text="${day8}" name="day" th:value="${day8}" class="holiday"></button></td>
+                    <td><button th:text="${day9}" name="day" th:value="${day9}"></button></td>
+                    <td><button th:text="${day10}" name="day" th:value="${day10}"></button></td>
+                    <td><button th:text="${day11}" name="day" th:value="${day11}"></button></td>
+                    <td><button th:text="${day12}" name="day" th:value="${day12}"></button></td>
+                    <td><button th:text="${day13}" name="day" th:value="${day13}"></button></td>
+                    <td><button th:text="${day14}" name="day" th:value="${day14}" class="holiday"></button></td>
+                </tr>
+                <tr>
+                    <td><button th:text="${day15}" name="day" th:value="${day15}" class="holiday"></button></td>
+                    <td><button th:text="${day16}" name="day" th:value="${day16}"></button></td>
+                    <td><button th:text="${day17}" name="day" th:value="${day17}"></button></td>
+                    <td><button th:text="${day18}" name="day" th:value="${day18}"></button></td>
+                    <td><button th:text="${day19}" name="day" th:value="${day19}"></button></td>
+                    <td><button th:text="${day20}" name="day" th:value="${day20}"></button></td>
+                    <td><button th:text="${day21}" name="day" th:value="${day21}" class="holiday"></button></td>
+                </tr>
+                <tr>
+                    <td><button th:text="${day22}" name="day" th:value="${day22}" class="holiday"></button></td>
+                    <td><button th:text="${day23}" name="day" th:value="${day23}"></button></td>
+                    <td><button th:text="${day24}" name="day" th:value="${day24}"></button></td>
+                    <td><button th:text="${day25}" name="day" th:value="${day25}"></button></td>
+                    <td><button th:text="${day26}" name="day" th:value="${day26}"></button></td>
+                    <td><button th:text="${day27}" name="day" th:value="${day27}"></button></td>
+                    <td><button th:text="${day28}" name="day" th:value="${day28}" class="holiday"></button></td>
+                </tr>
+                <tr>
+                    <td><button th:text="${day29}" name="day" th:value="${day29}" class="holiday"></button></td>
+                    <td><button th:text="${day30}" name="day" th:value="${day30}"></button></td>
+                    <td><button th:text="${day31}" name="day" th:value="${day31}"></button></td>
+                    <td><button th:text="${day32}" name="day" th:value="${day32}"></button></td>
+                    <td><button th:text="${day33}" name="day" th:value="${day33}"></button></td>
+                    <td><button th:text="${day34}" name="day" th:value="${day34}"></button></td>
+                    <td><button th:text="${day35}" name="day" th:value="${day35}" class="holiday"></button></td>
+                </tr>
+                <tr>
+                    <td><button th:text="${day36}" name="day" th:value="${day36}" class="holiday"></button></td>
+                    <td><button th:text="${day37}" name="day" th:value="${day37}"></button></td>
+                    <td><button th:text="${day38}" name="day" th:value="${day38}"></button></td>
+                    <td><button th:text="${day39}" name="day" th:value="${day39}"></button></td>
+                    <td><button th:text="${day40}" name="day" th:value="${day40}"></button></td>
+                    <td><button th:text="${day41}" name="day" th:value="${day41}"></button></td>
+                    <td><button th:text="${day42}" name="day" th:value="${day42}" class="holiday"></button></td>
+                  
+                </tr>
+            
+            </tbody>
+        </table>
+        </form>
+    </div>
+    </body>
+</html>

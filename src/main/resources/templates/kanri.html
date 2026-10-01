@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!-- 選択した日の勤怠・シフト一覧と、追加・修正・削除フォーム。 -->
+<html>
+    <head>
+        <meta charset="utf-8">
+         <link rel="stylesheet" th:href="@{/css/kanri.css}">
+         <!-- <link rel="stylesheet" href="../static/css/kanri.css"> -->
+         <script src="../js/kanri.js"></script>
+    </head>
+    <body>
+     <div class = "main">
+          <div class="nav">
+               <a th:href= "@{http://localhost:8080/admin/calendar}" class="link">カレンダー</a>
+               <form th:action="@{/logout}" method="post" class="logout-form">
+                    <button type="submit" name="logout" class="logout-button"> ログアウト</button>
+               </form>
+          </div>
+          <h1 th:text="${str}" id="date"></h1>
+          <h1 th:text="${error}"></h1>
+          <!----------動的なonclickを書きたいときは|__  __|で囲む必要がある(参考資料により)。| |は文字列ということを解釈させる--->
+          <button type="button" th:onclick="|__${addclick}__(event)|" class="add-button">+追加</button>
+          <table class="table">
+             <thead>
+                    <tr><th>編集/削除</th><th>ID</th><th>名前</th><th>出勤時間</th><th>退勤時間</th><th>休憩時間(分)</th></tr>
+             </thead>
+               <tbody>
+                    <tr th:each="item : ${date}">
+                         <td><button type="button" id="edit" th:onclick="|__${edit}__(event)|" class="kanri-edit-button">編集</button><button type="button" id = "delete" th:onclick="|__${remove}__(event)|" class="kanri-remove-button">削除</button></td>
+                         <td th:text="${item.id}"></td>                 <!-- これが cells[1] -->
+                         <td th:text="${item.person.name}"></td> <!-- これが cells[2] -->
+                         <td th:text="${#temporals.format(item.go,'HH:mm')}"></td><!-- これが cells[3] -->
+                         <td th:text="${#temporals.format(item.out,'HH:mm')}"></td><!-- これが cells[4] -->
+                         <td th:text="${item.breakTime} + 分"></td><!-- これが cells[5] -->
+                    </tr>
+               </tbody>
+          </table>
+<!-------------------------------------------------------------シフト予定の編集ダイアログ---------------------------------------->
+               <div id="shifteditdialog" style="display: none;"  class = "kanri-dialog">
+                    <div class="kanri-dialog-head"><h3 th:text="${str}"></h3></div>
+                    <div class="kanri-dialog-main">
+                         <form th:action="@{/admin/editshift}" method="post">
+                         <input type="hidden" name ="date" th:value="${str}">
+                         <input id="shifteditid" name = "id" type="hidden">
+                         <div class="form-row">
+                              <label for="shifteditname">名前:</label>
+                              <input id="shifteditname" name = "name" type="text" readonly required>
+                         </div>
+                         <div class="form-row">
+                              <label for="shifteditgo">出勤:</label>
+                              <input id="shifteditgo" name = "go" type="time">
+                         </div>
+                         <div class="form-row">
+                              <label for="shifteditout">退勤:</label>
+                              <input id="shifteditout" name = "out" type="time">
+                         </div>
+                         <div class="form-row"> 
+                              <label for="shifteditbreaktime">休憩(分):</label>
+                              <input id="shifteditbreaktime" name = "breaktime" type="number">
+                         </div>
+                         <button type="submit" class="dialog-Yes-button">更新</button><button type="button" onclick="editshiftclose()" class="dialog-No-button">キャンセル</button>
+                         </form>
+                    </div>
+                    
+               </div>
+<!-----------------------------------------------------------シフト予定の削除ダイアログ----------------------------------------->
+          <div id="shiftremovedialog" style="display: none;"  class = "kanri-dialog">
+               <div class="kanri-dialog-head"><h3>本当に削除しますか</h3></div>
+               <div class="kanri-dialog-main"> 
+               <form th:action="@{/admin/deleteshift}" method="post">
+               <input type="hidden" name ="date" th:value="${str}">
+               <input id="shiftremoveid" name = "id" type="hidden"><br>
+               <div class="form-row"> 
+                    <label for="shiftremobename">名前:</label>
+                    <input id="shiftremovename" name = "name" type="text"  class="remove-input" readonly required>
+               </div>
+               <div class="form-row">
+                    <label for="shiftremovego">出勤:</label>
+                    <input id="shiftremovego" name = "go" type="text" class="remove-input" readonly>
+               </div>
+               <div class="form-row">
+                    <label for="shiftremoveout">退勤:</label>
+                    <input id="shiftremoveout" name = "out" type="text" class="remove-input" readonly>
+               </div>
+               <div class="form-row">
+                    <label for="shiftremovebreaktime">休憩(分):</label>
+                    <input id="shiftremovebreaktime" name = "breaktime" type="number"  class="remove-input" readonly>
+               </div>
+               <button type="submit" class="dialog-Yes-button">削除</button><button type="button" onclick="closeshifteditdialog()" class="dialog-No-button">キャンセル</button>
+               </form>
+               </div>
+          </div>
+
+
+<!----------------------------------------------------------勤怠記録編集ダイアログ(初めは非表示) ----------------------------------------------------------------------->
+          <div id="dialog" style="display: none;"  class = "kanri-dialog">
+               <div class="kanri-dialog-head"><h3 th:text="${str}"></h3></div>
+               <div class="kanri-dialog-main">
+                    <form th:action="@{/admin/edit}" method="post"   id="form">
+                    <input type="hidden" name ="date" th:value="${str}">
+                    <input id="editid" name = "id" type="hidden">
+                    <div class="form-row">
+                         <label for="editname">名前:</label>
+                         <input id="editname" name = "name" type="text" readonly required>
+                    </div>
+                    <div class="form-row">
+                         <label for="editgo">出勤:</label>
+                         <input id="editgo" name = "go" type="time">
+                    </div>
+                    <div class="form-row">
+                         <label for="editout">退勤:</label>
+                         <input id="editout" name = "out" type="time">
+                    </div>
+                    <div class="form-row">
+                         <label for="editbreaktime">休憩(分):</label>
+                         <input id="editbreaktime" name = "breaktime" type="number">
+                    </div>
+                    <button type="submit" class="dialog-Yes-button">更新</button><button type="button" onclick="closedialog()" class="dialog-No-button">キャンセル</button>
+                    </form>
+               </div>
+               
+          </div>
+<!-----------------------------------------------勤怠記録削除ダイアログ初めは非表示--------------------------------------------------------------------->
+          <div id="removedialog" style="display: none;"  class = "kanri-dialog">
+                    <div class="kanri-dialog-head"><h3>本当に削除しますか</h3></div>
+                    <div class="kanri-dialog-main"> 
+                    <form th:action="@{/admin/delete}" method="post">
+                    <input type="hidden" name ="date" th:value="${str}">
+                    <input id="removeid" name = "id" type="hidden">
+                    <div class="form-row">
+                         <label for="remobename">名前:</label>
+                         <input id="removename" name = "name" type="text" class="remove-input" readonly>
+                    </div>
+                    <div class="form-row">
+                         <label for="removego">出勤:</label>
+                         <input id="removego" name = "go" type="text" class="remove-input" readonly>
+                    </div>
+                    <div class="form-row">
+                         <label for="removeout">退勤:</label>
+                         <input id="removeout" name = "out" type="text" class="remove-input" readonly>
+                    </div>
+                    <div class="form-row">
+                         <label for="removebreaktime">休憩(分):</label>
+                         <input id="removebreaktime" name = "break" type="number" class="remove-input" readonly>
+                    </div>   
+                    <button type="submit" class="dialog-Yes-button">削除</button><button type="button" onclick="closedeletedialog()" class="dialog-No-button">キャンセル</button>
+                    </form>
+                    </div>
+          </div>
+<!-----------------------------------------------シフト追加ダイアログ初めは非表示--------------------------------------------------------------------->
+
+          <div id="addshiftdialog" style="display: none;" class="kanri-dialog">
+               <div class="kanri-dialog-head"><h3 th:text="${str}"></h3></div>
+               <div class="kanri-dialog-main">
+               <form th:action="@{/admin/addshift}" th:object="${shift}" method="post">
+                    <input type="hidden" name ="date" th:value="${str}" id ="date">
+                    <div class="form-row">
+                         <label for="editperson">ID:</label>
+                         <input type="number" id="editperson"  name ="person" th:value="*{person}"  placeholder="従業員id">
+                         <div th:if="${#fields.hasErrors('person')}" th:errors="*{person}" class="error"></div>
+                    </div>
+                    <div class="form-row">
+                         <label for="editgo">出勤時間:</label>
+                         <input type="time" id="editgo" name = "go" th:value="*{go}" placeholder="出勤時間">
+                    </div>
+                    <div class="form-row">
+                         <label for="editout">退勤時間:</label>
+                         <input type="time" id="editout" name = "out" th:value="*{out}" placeholder="退勤時間">
+                    </div>
+                    <div class="form-row">
+                         <label for="editbreaktime">休憩(分):</label>
+                         <input type="number" id="editbreaktime" name = "breakTime" th:value="*{breakTime}" placeholder="休憩時間(分(例))">
+                    </div>
+                    <button type="submit" class="dialog-Yes-button">追加</button><button type="button" onclick="closeshiftdialog()" class="dialog-No-button">キャンセル</button>
+               </form>
+               </div>
+
+          </div>
+          
+<!-----------------------------------------------勤怠記録追加ダイアログ初めは非表示--------------------------------------------------------------------->
+
+          <div id="kintaidialog" style="display: none;" class="kanri-dialog">
+               <div class="kanri-dialog-head"><h3 th:text="${str}"></h3></div>
+                    <div class="kanri-dialog-main">
+                         <form th:action="@{/admin/addkintai}" th:object="${kintai}" method="post">
+                              <input type="hidden" name ="date" th:value="${str}" >
+                              <div class="form-row">
+                                   <label for="kintaiperson">ID:</label>
+                                   <input type="number" id="kintaiperson" name ="person" th:value="*{person}"  placeholder="従業員id" required>
+                                   <div th:if="${#fields.hasErrors('person')}" th:errors="*{person}" class="error"></div>
+                              </div>
+                              <div class="form-row">
+                                   <label for="kintaigo">出勤時間:</label>
+                                   <input type="time" id = "kintaigo" name = "go" th:value="*{go}" placeholder="出勤時間を入力して">
+                              </div>
+                              <div class="form-row">
+                                   <label for="kintaiout">退勤時間:</label>
+                                   <input type="time" id="kitaiout" name = "out" th:value="*{out}" placeholder="退勤時間を入力して">
+                              </div>
+                              <div class="form-row">
+                                   <label for="kintaibreaktime">休憩時間:</label>
+                                   <input type="number" id="kitaibreaktime" name = "breakTime" th:value="*{breakTime}" placeholder="休憩時間(分)">
+                              </div>
+                              <button type="submit" class="dialog-Yes-button">追加</button><button type="button" onclick="closekintaidialog()" class="dialog-No-button">キャンセル</button>
+                         </form>
+                    </div>
+               
+          </div>
+          
+           
+    </body>
+</html>

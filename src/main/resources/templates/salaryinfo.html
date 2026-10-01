@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- 選択した期間の勤怠と、勤務時間・給与の合計を表示する。 -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>給料管理</title>
+    <link rel="stylesheet" th:href="@{/css/salaryinfo.css}">
+    <!-- <link rel="stylesheet" href="../static/css/salaryinfo.css"> -->
+</head>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>給料管理</title>
+</head>
+<body>
+    <div class="main">
+        <div class="nav">
+            <a th:href="@{http://localhost:8080/timecard}" class ="link">タイムカード</a>
+            <a th:href="@{http://localhost:8080/admin/employee-list}" class="link">従業員一覧</a>
+            <a th:href="@{http://localhost:8080/admin/calendar}" class="link">カレンダー</a>
+            <form th:action="@{/logout}" method="post" class="logout-form">
+                <button type="submit" name="logout" class="logout-button"> ログアウト</button>
+            </form>
+
+        </div>
+        <div class="month-select">
+            <form th:action="@{/admin/salaryinfo}" th:object="${person}"  method="post">
+                <input type="hidden" name="id" th:value="*{id}" >
+                <input type="hidden" name = "name" th:value="*{name}">
+                <input type="month" name="month" class="month-input">
+                <button type="submit" class="month-button"> 検索</button>
+            </form>
+        </div>
+        <h2 th:text="${personname}"></h2>
+         <h2 th:text="${month}" class="month">11-22</h2>
+         <h3>一か月の給料</h3>
+         <ul>
+            <li th:text="${workingHours}"></li>
+            <li th:text="${houlywage}"></li>
+            <li th:text="${monthWage}"></li>
+         </ul>
+         <h3>一か月の勤怠記録</h3>
+         <table>
+             <thead>
+                 <tr><th class="top-left">日付</th><th>出勤時間</th><th>退勤時間</th><th>勤務時間</th><th class="top-right">給料</th></tr>
+             </thead>
+             <tbody>
+                 <tr th:each="item :${list}">
+                    <th th:text="${#temporals.format(item.date,'MM/dd')}"></th>
+                    <th th:text ="${#temporals.format(item.go,'HH:mm')}"></th>
+                    <th th:text="${#temporals.format(item.out,'HH:mm')}"></th>
+                    <th th:text="${item.workingHours}"></th>
+                    <th th:text="${item.todayWage}"></th>
+
+                 </tr>
+                 
+             </tbody>
+         </table>
+         
+         
+     </div>
+</body>
+</html>
+</html>

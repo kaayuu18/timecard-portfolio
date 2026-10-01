@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- 従業員情報と、編集・削除の確認画面。 -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" th:href="@{/css/person-info.css}">
+        <!-- <link rel="stylesheet" href="../static/css/person-info.css"> -->
+        <script src="../js/personinfo.js"></script>
+    </head>
+<body>
+    <div class="main">
+        <div class="nav">
+            <a th:href="@{http://localhost:8080/admin/employee-list}" class="link">一覧に戻る</a><br>
+            <form th:action="@{/admin/salaryinfo}" th:object= ${data} method="get" class="salaryinfo-form">
+                <input type="hidden" name = "id" th:value="*{id}">
+                <input type="hidden" name =  "name" th:value="*{name}">
+                <button type="submit" class="salary-button">給料確認</button>
+            </form>
+            <form th:action="@{/logout}" method="post" class="logout-form">
+                <button type="submit" name="logout" class="logout-button"> ログアウト</button>
+            </form>
+        </div>
+        <button type="button" id="editButton" onclick="editdialogopen()" class="editbutton">編集</button>
+        <form th:action="@{/admin/deleteperson}" method="post" id="deleteform" class="people-form">
+            <button type="button" onclick="deletecheck(event)" class="delete-button">この従業員を削除</button>
+            <table class="people-table1">
+                <thead>
+                    <tr><th class="top-left">従業員ID</th><th class="top-right">名前</th></tr>
+                </thead>
+                    <tbody>
+                        <tr th:each="people : ${data}">
+                            <td><input type="text" name="id" th:value="*{people.id}" id="id" class="delete-input" readonly></td>
+                            <td><input type="text" name="name" th:value="*{people.name}" id="name" class="delete-input" readonly></td>
+                        </tr>
+                    </tbody>
+            </table>
+        </form>
+        <table class="people-table">
+                <thead>
+                    <tr><th class="top-left">日付</th><th>出勤時間</th><th class="top-right">退勤時間</th></tr>
+                </thead>
+                    <tbody>
+                        <tr th:each="item : ${data.kintai}">
+                            <td th:text="${#temporals.format(item.date, 'yyyy年MM月dd日')}"></td>
+                            <td th:text="${#temporals.format(item.go,'HH:mm')}"></td>
+                            <td th:text="${#temporals.format(item.out,'HH:mm')}"></td>
+                        </tr>
+                    </tbody>
+        </table>
+        <!-------------------- ダイアログ -------------------->
+        <div class="people-form-dialog" id = "dialog" style="display: none;">
+                <div class="dialog-head"><h2>本当に削除しますか</h2></div>
+                <div class="delete-dialog-main">
+                <!-- <span class="delete-dialog-span">従業員ID</span>
+                <span id="dialogpeopleid"></span><br>
+                <span class="delete-dialog-span">名前</span>
+                <span id="dialogpeoplename"></span> -->
+                <div class="delete-form-row">
+                    <span>従業員ID:</span>
+                    <span id="dialogpeopleid" class="delete-dialog-span"></span>
+               </div>
+               <div class="delete-form-row">
+                    <span>名前:</span>
+                    <span id="dialogpeoplename" class="delete-dialog-span"></span>
+               </div>
+                </div>
+            <button onclick="deletesubmit()" class="person-delete-button">削除</button><button onclick="closeDialog()" class="person-cancel-button">キャンセル</button>
+        </div>
+        <div id="edit-overlay" class="edit-overlay">
+            <div id="edit-dialog" class="edit-dialog">
+                <h2>hello</h2>
+                <form th:action="@{/editpersonInfo}" th:object="${data}" method="post" class="dialog-form">
+                    <input type="hidden" name="id" th:value="*{id}">
+                    <div class="dialog-div"> 
+                        <label for="editname">名前</label>
+                        <input type="text" name = "name" id="editname" th:value="*{name}" class="dialog-input" required>
+                    </div>
+                    <div class="dialog-div">
+                        <label for="editage">年齢</label>
+                        <input type="number" name = "age" id="editage" th:value="*{age}" class="dialog-input" required>
+                    </div>
+                    <div class="dialog-div">
+                        <label for="editaddress"> 住所</label>
+                        <input type="text" name = "address" id="editaddress" th:value="*{address}" class="dialog-input" required>
+                    </div>
+                    <div class="dialog-div">
+                        <label for="editphone">電話番号</label>
+                        <input type="tel" name = "phoneNum" id="editphone" th:value="*{phoneNum}" class="dialog-input" required>
+                    </div>
+                    <div class="dialog-div">
+                        <label for="editmail">メールアドレス</label>
+                        <input type="email" name = "mail" id="editmail" th:value="*{mail}" class="dialog-input" required>
+                    </div>
+                    <div class="dialog-div">
+                        <label for="hourly_wage">時給</label>
+                        <input type="number" name = "hourWage" id = "hourly_wage" th:value="*{hourWage}" class="dialog-input" required>
+                    </div>
+                    <div class="dialog-button">
+                        <button type="button" onclick="closeeditdialog()" id="closeeditdialogbutton" class="closeeditdialogbutton">閉じる</button><button type="submit" class="edit-submit-button">変更</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

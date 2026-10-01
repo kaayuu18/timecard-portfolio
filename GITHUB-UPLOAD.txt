@@ -1,0 +1,10 @@
+公開前にGitHubリポジトリを作成します。
+推奨リポジトリ名：timecard-portfolio
+面接官がログインせずに閲覧する場合はPublic。
+限定公開の場合はPrivateにして、面接官のGitHubアカウントを招待します。
+
+アップロード対象：このフォルダ内のREADME.md、build.gradle、settings.gradle、
+gradlew、gradlew.bat、gradleフォルダ、srcフォルダ、.gitignore。
+ZIPファイルそのものを置くのではなく、展開したコードを置きます。
+dataフォルダ・個人情報・MySQLの実パスワードは載せません。
+GitHubへの保存はまだ実行していません。

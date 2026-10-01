@@ -1,0 +1,239 @@
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #2a5298;
+    /* background-image: url("../image/image.png"); */
+    width: 1000px;
+    height:1200px;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    letter-spacing: 3px;
+    }
+    .main{
+    position: relative;
+    background-color: #1e3c72;
+    width: 1000px;
+    margin: auto;
+    text-align: center;
+    border-radius: 30px;
+    padding-bottom:  100px;
+    padding-top: 10px;
+    color: white;
+    }
+    
+    
+    /* ナビゲーションバー */
+    .nav {
+        background-color: none;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+        }
+        
+        .link {
+        background-color:#2a5298;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        }
+        
+        .link:hover {
+        color: white;
+        background-color: #4f7dcc;
+        
+        }
+    
+    /* ログアウトボタン */
+    .logout-form {
+    margin-left: auto;
+    }
+    
+    .logout-button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    }
+    
+    .logout-button:hover {
+    background-color: #c9302c;
+    }
+    .add-button{
+    margin:10px 0px 10px 100px;
+    font-size:18px;
+    padding-left: 20px;
+    padding-right:20px;
+    border-radius: 10px;
+    color: black;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: none;
+    float: left;
+    
+    }
+    .add-button:hover{
+    transform: scale(1.1);
+    background-color: yellow;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    
+    .table {
+    width: 90%;
+    border-collapse: collapse; /* セルの間の隙間をなくす */
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    border-bottom: 2px solid white;
+    margin: auto;
+    position: relative;
+    
+    }
+    .table th {
+    padding: 10px 30px 10px 30px;
+    font-size: 20px;
+    background-color:#2a5298;
+    color: white; /* 文字色 */
+    }
+    .top-left{
+    border-top-left-radius: 10px;
+    }
+    .top-right{
+    border-top-right-radius: 10px;
+    
+    }
+    /* テーブルのデータセル */
+    .table td {
+    color: white;
+    
+    padding: 10px 30px 10px 30px;
+    text-align: center; /* 中央揃え */
+    font-size: 20px;
+    border-bottom:  2px solid white;
+    border-radius: 15px;
+    }
+    .kanri-edit-button,.kanri-remove-button{
+    color:white;
+    border: none;
+    margin-left:10px;
+    margin-right:10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    box-shadow: 0px 2px 4px 0px black;
+    
+    }
+    .kanri-edit-button{
+    background-color: green;
+    
+    }
+    .kanri-remove-button{
+    background-color: red;
+    }
+    .kanri-remove-button:hover{
+    
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    .kanri-edit-button:hover{
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    
+    }
+    /* //----------------------- ダイアログ-------------------------*/
+    .kanri-dialog{
+        margin: auto;
+        position: fixed;
+        width: 500px;
+        padding: 10px;
+        top:30%; /*ダイアログの左上を基準にして高さを合わせる*/
+        left:50%;/*ダイアログの左上を基準にして高さを合わせる*/
+        transform: translate(-50%,-50%);/*ダイアログの大きさの半分だけ戻して調整、横幅高さ*/
+        background: #1e3c72;
+        border-radius: 10px;
+        z-index: 1000;/*要素の重なり順を決める。数字が高いと他の要素より前面に表示される*/
+        box-shadow: 5px 10px 10px 5px black;/*要素に影をつけて立体感を出すbox-shadow: 水平方向 垂直方向 ぼかしの強さ 拡散の大きさ 色;*/
+        font-size: 30px;
+        
+    }
+    .kanri-dialog-head h3{
+                border-bottom: 3px solid white;
+                color: yellow;
+                margin-bottom: 10px;
+    }
+    .kanri-dialog-main{
+                margin-top: 20px;
+    }
+    .form-row {
+        display: flex; /* Flexboxで横並びに */
+        align-items: center; /* 垂直方向も中央 */
+        margin-bottom: 15px; /* 行間を調整 */
+    }
+    
+    .form-row label {
+        width: 150px; /* ラベルの幅を指定 */
+        text-align: right; /* ラベルを右揃え */
+        margin-right: 10px; /* ラベルと入力欄の間にスペース */
+    }
+    
+    .form-row input {
+        font-size: 30px;
+        text-align: center;
+        padding: 8px;
+        width: 200px; /* 入力欄の幅を調整 */
+        height: 15px;
+        border-radius: 5px;
+        border: none;
+        
+    }
+    .remove-input{
+                background:none ;
+                color: white;
+                
+    }
+    
+    /* -------------------------------追記 (12/11)---------------------------------*/
+    button{
+        cursor: pointer;
+    }
+    .dialog-Yes-button{
+        background-color: green;
+        color:white;
+        font-size:20px;
+        transition: all 0.3s ease;
+        box-shadow: 0px 2px 2px 0px black;
+        margin: 10px;
+        border-radius: 10px;
+    
+    
+    }
+    .dialog-No-button{
+        background-color: red;
+        color:white;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0px 2px 2px 0px black;
+        margin: 10px;
+        border-radius: 10px;
+    
+    
+    }
+    .dialog-Yes-button:hover{
+        transform: scale(1.2);
+    
+    }
+    .dialog-No-button:hover{
+        transform: scale(1.2);
+    
+    
+    }

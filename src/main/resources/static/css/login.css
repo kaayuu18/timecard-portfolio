@@ -1,0 +1,89 @@
+
+body {
+margin: 0; /* ページの余白をなくす */
+display: flex; /* 要素を並べるためにフレックスボックスを使う */
+background-color: #2a5298;
+/* 背景画像を使う場合は、上の行のコメントアウトを外して使える */
+font-family: "Arial", sans-serif; /* フォントをArialに設定 */
+color: #fff; /* 文字の色を白に設定 */
+}
+
+/* メインコンテンツのスタイル */
+.main {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+background-color: #1e3c72;
+border-radius: 20px; /* 角を丸くする */
+padding: 40px; /* 内側の余白を40pxにする */
+width: 400px; /* 幅を400pxに設定 */
+text-align: center; /* 文字を中央に配置 */
+box-shadow: none; /* 影をなくす */
+}
+
+/* メインタイトルのスタイル */
+.main h1 {
+margin-bottom: 40px; /* 下の余白を40pxに設定 */
+font-size: 32px; /* 文字サイズを32pxに設定 */
+color: #ffffffcc; /* 文字色を白に少し透明感を持たせる */
+font-weight: bold; /* 文字を太くする */
+letter-spacing: 1px; /* 文字の間隔を少し開ける */
+}
+
+/* 入力ボックスのスタイル */
+.main input {
+width: 90%; /* 入力ボックスの幅を90%に設定 */
+padding: 15px; /* 内側に15pxの余白を設定 */
+margin: 15px 0; /* 上下の余白を15pxに設定 */
+border: 1px solid rgba(255, 255, 255, 0.4); /* 枠線を薄くする */
+border-radius: 30px; /* 角を丸くする */
+background: none; /* 背景を透明にする */
+color: #fff; /* 文字色を白に設定 */
+font-size: 18px; /* 文字サイズを18pxに設定 */
+text-align: center; /* 文字を中央に配置 */
+outline: none; /* 入力ボックスを選択しても枠線が表示されない */
+}
+
+/* プレースホルダー（入力欄に表示されるヒント文字）の色 */
+.main input::placeholder {
+color: rgba(255, 255, 255, 0.7); /* 少し透明な白色にする */
+}
+
+/* ボタンのスタイル */
+.main button {
+width: 90%; /* ボタンの幅を90%に設定 */
+padding: 15px; /* 内側に15pxの余白を設定 */
+margin-top: 25px; /* 上に25pxの余白を設定 */
+border: none; /* 枠線なし */
+border-radius: 30px; /* 角を丸くする */
+background: linear-gradient(135deg, #81c784, #4caf50); /* グラデーション背景を設定 */
+color: #fff; /* 文字色を白に設定 */
+font-size: 18px; /* 文字サイズを18pxに設定 */
+font-weight: bold; /* 文字を太くする */
+cursor: pointer; /* マウスカーソルを手の形にする */
+transition: background 0.3s ease; /* 背景色が変わる時にアニメーションをつける */
+}
+
+/* ボタンにマウスをのせた時の色変更 */
+.main button:hover {
+background: linear-gradient(135deg, #66bb6a, #388e3c); /* ボタンの背景色を少し変更 */
+}
+
+/* ナビゲーションメニューのスタイル */
+.nav {
+margin-top: 30px; /* 上の余白を30pxに設定 */
+}
+
+/* ナビゲーションリンクのスタイル */
+.nav a {
+color: #81c784; /* リンクの色を薄い緑に設定 */
+text-decoration: none; /* リンクの下線をなくす */
+font-weight: bold; /* 文字を太くする */
+transition: color 0.3s ease; /* 色が変わる時にアニメーションをつける */
+}
+
+/* リンクにマウスをのせた時の色変更 */
+.nav a:hover {
+color: #4caf50; /* リンクにマウスをのせた時に色を変更 */
+} 

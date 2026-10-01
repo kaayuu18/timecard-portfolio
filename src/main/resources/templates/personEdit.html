@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- 従業員登録の入力フォームと、送信前の確認画面。 -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{./css/create-people.css}">
+     <!-- <link rel="stylesheet" href="../static/css/create-people.css"> -->
+    <script>
+        function checkform(event){
+            event.preventDefault();
+            console.log(document.getElementById('name').value);
+            document.getElementById('personname').innerText = document.getElementById('name').value;
+            document.getElementById('personage').innerText = document.getElementById('age').value;
+            document.getElementById('personaddress').innerText = document.getElementById('address').value;
+            document.getElementById('personmail').innerText = document.getElementById('mail').value;
+            document.getElementById('personphoneNum').innerText = document.getElementById('phoneNum').value;
+            document.getElementById('personeditdialog').style.display = "block";
+        }
+        function closedialog(){
+            document.getElementById('personeditdialog').style.display = "none";
+        }
+        function formsubmit(){
+            const form = document.getElementById('formsubmit');
+            form.submit();
+        }
+
+    </script>
+</head>
+<body>
+    <div class="main">
+        <h1>従業員登録画面</h1>
+            <div class="nav">
+                <a th:href="@{http://localhost:8080/admin/calendar}" class="link">カレンダー</a>
+                <a th:href="@{http://localhost:8080/admin/employee-list}" class="link">従業員一覧</a>
+                <a th:href="@{http://localhost:8080/timecard}" class="link">打刻画面</a><br>
+            </div>
+        <div class="create-people">
+            <form  th:action="@{/personedit}" th:object="${createPerson}" id="formsubmit" method="post" class="people-form">
+                <div class="form">
+                    <label for="name" class="editlabel">名前:</label>
+                    <input type="text" id="name" th:value="*{name}" name="name" class="editinput" required>
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+                </div>
+                <div class="form">     
+                    <label for="age" class="editlabel">年齢:</label>
+                    <input type="number" id="age" th:value="*{age}" name="age" class="editinput" required>
+                    <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error"></div>
+                </div>
+                <div class="form">
+                                <label for="address" class="editlabel">住所:</label>
+                    <input type="text" id="address" th:value="*{address}" name="address" class="editinput" required> 
+                    <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error"></div>
+                </div>
+                <div class="form">
+                                <label for="phoneNum" class="editlabel">電話番号:</label>
+                    <input type="tel" id="phoneNum" th:value="*{phoneNum}" name="phoneNum" class="editinput" required>
+                    <div th:if="${#fields.hasErrors('phoneNum')}" th:errors="*{phoneNum}" class="error"></div>
+                </div>
+                <div class="form">
+                                <label for="mail" class="editlabel">メールアドレス:</label>
+                    <input type="email" id ="mail" th:value="*{mail}" name="mail" class="editinput" required>
+                    <div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="error"></div>
+                </div>
+                <div class="form">
+                                <label for="password" class="editlabel">passwordを決めてください:</label>
+                    <input type="password" id ="password" th:value="*{password}" name="password" class="editinput" required>
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
+                </div>
+                <div class="radio-form">
+                    <div class="radio"> 
+                        <label for="checkA">管理者</label>
+                        <input type="radio" id="checkA" name = "role" value="ADMIN">
+                    </div>
+                    <div class="radio">
+                        <label for="checkB">従業員</label>
+                        <input type="radio" ic="checkB" name = "role" value="USER" checked>
+                    </div>
+
+                </div>
+                        <button type="reset" class="reset-button">リセット</button>
+                        <button type="submit" onclick="checkform(event)" class="submit-button">送信</button>
+            </form>
+        </div>
+    </div>
+<!-------------------------------ダイアログ　初めは非表示 --------------------------------------------------------------------->
+                <!--------------------テーブルだと列が多くて無理--------------------------->
+        <div id="personeditdialog" class="create-people-dialog" style="display: none;">
+                        <div class="dialog-head"><h1>登録確認画面</h1></div>
+                        <div class="dialog-main">
+                        <p class = "createPersonP"><span class="createPersonSpan">名前:</span><span id="personname"></span></p>
+                        <p class = "createPersonP"><span class="createPersonSpan">年齢:</span><span id="personage"></span></p>
+                        <p class = "createPersonP"><span class="createPersonSpan">住所:</span><span id="personaddress"></span></p>
+                        <p class = "createPersonP"><span class="createPersonSpan">電話番号:</span><span id="personphoneNum"></span></p>
+                        <p class = "createPersonP"><span class="createPersonSpan">mail:</span><span id="personmail"></span></p>
+                        </div>
+                        <div class="personeditdialog-botton">
+                        <button onclick="closedialog()" class="cancel-button">キャンセル</button>
+                        <button onclick="formsubmit()" class="save-button">保存</button>
+                        </div>
+                    
+        </div>
+    
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>給料管理</title>
+    <link rel="stylesheet" href="./css/salary_management.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="nav-btn" onclick="goBack()">戻る</button>
+            <h1>給料管理</h1>
+            <h2>従業員: 山田太郎 (ID: 001)</h2>
+        </div>
+
+        <div class="month-selector">
+            <label for="month">月を選択:</label>
+            <select id="month" onchange="updateSalary()">
+                <option value="1">1月</option>
+                <option value="2">2月</option>
+                <option value="3">3月</option>
+                <option value="4">4月</option>
+                <option value="5">5月</option>
+                <option value="6">6月</option>
+                <option value="7">7月</option>
+                <option value="8">8月</option>
+                <option value="9">9月</option>
+                <option value="10">10月</option>
+                <option value="11">11月</option>
+                <option value="12">12月</option>
+            </select>
+        </div>
+
+        <div class="attendance">
+            <h3>1ヶ月の勤怠記録</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>日付</th>
+                        <th>出勤時間</th>
+                        <th>退勤時間</th>
+                        <th>休憩時間</th>
+                        <th>勤務時間</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 勤怠記録を動的に表示 -->
+                    <tr th:each="item :${list}">
+                        <td>2024-12-01</td>
+                        <th th:text="${#temporals.format(item.date,'MM/dd')}"></th>
+                    <th th:text ="${#temporals.format(item.go,'HH:mm')}"></th>
+                    <th th:text="${#temporals.format(item.out,'HH:mm')}"></th>
+                    <th >200:00</th>
+                    </tr>
+                    <!-- 他の日付の勤怠記録を追加 -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="salary-summary">
+            <h3>給料概要</h3>
+            <p>総勤務時間: <span id="total-hours">8.0時間</span></p>
+            <p>1ヶ月の給料: <span id="salary">￥240,000</span></p>
+        </div>
+    </div>
+
+    <script>
+        // 戻るボタン
+        function goBack() {
+            window.history.back();
+        }
+
+        // 月選択時に表示を更新
+        function updateSalary() {
+            const month = document.getElementById("month").value;
+
+            // 勤怠記録と給料を動的に変更する処理
+            // 月に応じてダミーデータ（実際はAPIから取得）を更新
+            const totalHours = getTotalHoursForMonth(month);
+            const salary = calculateSalary(totalHours);
+
+            // 総勤務時間と給料を更新
+            document.getElementById("total-hours").textContent = `${totalHours}時間`;
+            document.getElementById("salary").textContent = `￥${salary.toLocaleString()}`;
+        }
+
+        // 月ごとの総勤務時間を取得するダミー関数（実際のデータに基づいて変更）
+        function getTotalHoursForMonth(month) {
+            // ダミーデータ（実際の勤怠情報を元に計算）
+            switch(month) {
+                case "1": return 160;
+                case "2": return 140;
+                case "3": return 150;
+                case "4": return 170;
+                case "5": return 160;
+                case "6": return 165;
+                case "7": return 155;
+                case "8": return 160;
+                case "9": return 158;
+                case "10": return 162;
+                case "11": return 163;
+                case "12": return 160;
+                default: return 0;
+            }
+        }
+
+        // 給料計算ダミー関数（実際の給料計算に基づいて変更）
+        function calculateSalary(hoursWorked) {
+            const hourlyRate = 1500; // 時給（例）
+            return hourlyRate * hoursWorked;
+        }
+    </script>
+</body>
+</html>
