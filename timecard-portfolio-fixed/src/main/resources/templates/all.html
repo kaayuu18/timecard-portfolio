@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- 管理者向けの従業員一覧と各従業員の操作リンクを表示する。 -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" th:href="@{/css/all-people-list.css}">
+         <!-- <link rel="stylesheet" href="/Users/yutaka/Desktop/samplespring/kadai3_2app/src/main/resources/static/css/all-people-list.css"> -->
+        <title>タイムカード</title>
+    </head>
+<body>
+  
+  <div class = "main">
+    <div class="nav">
+        <a th:href="@{http://localhost:8080/admin/calendar}" class="link">カレンダー</a>
+        <a th:href="@{http://localhost:8080/timecard}" class ="link">タイムカード</a><br>
+        <a th:href="@{http://localhost:8080/personedit}" class ="link">従業員登録</a>
+        <form th:action="@{/logout}" method="post" class="logout-form">
+          <button type="submit" name="logout" class="logout-button"> ログアウト</button>
+        </form>
+    </div>
+    <h1>従業員一覧</h1>
+    <div class="serch-form-div">
+        <form th:action="@{/admin/employee-list}" method = "post" class="search-form">
+            <input type="text" name="name" th:value="${value}" placeholder="ID/名前">
+            <button type ="submit" class="serch-form-button">検索</button>
+        </form>
+    </div>
+    <h1 class="title" th:text="${title}"></h1>
+      <div class="people-list" >
+          <table class="people-table">
+            <form th:action="@{/admin/personinfo}" method="post" class="people-form">
+              <thead>
+                <tr><th>ID</th><th>名前</th><th>年齢</th><th>電話番号</th><th>メールアドレス</th></tr>
+              </thead>
+                <tbody>
+                  <tr th:each="item : ${data}">
+                    <td th:text="${item.id}">1</td>
+                    <td><button type="submit" th:text="${item.name}" name = "name" th:value="${item.id}" class="namebutton">tanaka</button></td>
+                    <td th:text="${item.age}">22</td>
+                    <td th:text="${item.phoneNum}">090-1111-1111</td>
+                    <td th:text="${item.mail}">tanaka@gmail.com</td>
+                  </tr>
+                </tbody>
+            </form>
+          </table>
+      </div>
+  </div>
+</body>
+    </html>

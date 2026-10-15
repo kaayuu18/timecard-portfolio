@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- 入力したシフト情報をまとめて登録する画面。 -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+          body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  width: 80%;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 24px;
+  color: #2a5298;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.link {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #2a5298;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.link:hover {
+  background-color: #1d3c72;
+}
+
+.people-form p {
+  margin: 10px 0 5px 0;
+  font-weight: bold;
+}
+
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  background-color: #2a5298;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+input[type="submit"]:hover {
+  background-color: #1d3c72;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #2a5298;
+  color: white;
+}
+
+td input[type="text"] {
+  border: none;
+  background: none;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+}
+
+td input[type="text"]:focus {
+  outline: none;
+}
+
+.save-button {
+  margin-top: 10px;
+}
+        </style>
+        <script>
+          let array = [];
+
+          function a(event) {
+              event.preventDefault();  // フォーム送信を防止
+
+              var id = document.getElementById("id").value;
+              var date = document.getElementById("shift").value;
+              var start_time = document.getElementById("start_time").value;
+              var end_time = document.getElementById("end_time").value;
+
+              array.push(id, date, start_time, end_time);  // 配列にデータを追加
+
+              console.log(array);  // 配列の確認
+
+              var table = document.querySelector(".table tbody");
+              var newRow = document.createElement("tr");
+
+              // 新しい行を作って、shiftlistの値をその時だけカンマ区切りで入れる
+              var shiftlist = [id, date, start_time, end_time].join(',');  // ここでその行のデータをカンマ区切りにする
+
+              newRow.innerHTML = `
+                  <td><input type="text" name="person" value="${id}" readonly/></td>
+                  <td><input type="text" name="date" value="${date}" readonly/></td>
+                  <td><input type="text" name="go" value="${start_time}" readonly/></td>
+                  <td><input type="text" name="out" value="${end_time}" readonly/></td>
+                  <td><input type="hidden" name="shiftlist" value="${shiftlist}"></td>`;  // 各行のshiftlistをその時の値にする
+              table.appendChild(newRow);  // テーブルに新しい行を追加
+          }
+
+          function sendForm() {
+              const form = document.getElementById("myform");
+              form.submit();  // フォームを送信
+          }
+  </script>
+    </head>
+<body>
+      <div class="main">
+        <h1 class="form-title">シフト追加</h1>
+        <ul>
+            <a href="http://localhost:8080/timecard" class ="link">タイムカード</a>
+             <a href="http://localhost:8080/admin/calendar" class="link">カレンダー</a>
+            <a href="http://localhost:8080/admin/employee-list" class="link">従業員一覧</a>
+        </ul>
+        <form action="#" class="people-form">
+                  <p>従業員id</p>
+          <input type="number" name="person" id="id" placeholder="idを入力して">
+                    <p>日付</p>
+          <input type="date" name = "date" id="shift">
+                  <p>出勤時間</p>
+          <input type="time" name = "start_time" id="start_time">
+                  <p>退勤時間</p>
+          <input type="time" name = "end_time" id="end_time"><br>
+          <input type="submit" class="save-button" onclick="a(event)" value="＋追加">
+        </form>
+          <form id="myform" action="/shiftedit" method="post" class="people-form">
+                <input type="submit" class="save-button"  value="すべて保存">
+            <table class="table">
+                <thead>
+                <tr><th>ID</th><th>date</th><th>出勤時間</th><th>退勤時間</th></tr>
+                </thead>
+              <tbody>
+                <tr>
+                    <!-------ここに入ります-->            
+                </tr>
+              </tbody>
+            </table>
+        </form>
+                    
+      </div>
+</body>
+</html>

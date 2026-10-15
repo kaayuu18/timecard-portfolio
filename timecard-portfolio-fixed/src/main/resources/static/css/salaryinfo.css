@@ -1,0 +1,169 @@
+body{
+background-color: #2a5298;
+/* background-image: url("../image/image.png"); */
+width: 1000px;
+height:1200px;
+margin: auto;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+li{
+        list-style: none;
+}
+.main {
+width: 1000px;
+padding: 20px;
+background-color: #1e3c72;
+border-radius: 10px; /* 角を丸くする */
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 軽い影をつける */
+font-family: 'Arial', sans-serif; /* シンプルなフォント */
+color: white; /* 文字色を濃いグレー */
+}
+.month-select{
+        margin-left: 50px;
+}
+.month-input{ 
+        font-size:24px;
+        padding:8px;
+        cursor: pointer;
+        width:25%;
+        border-top-left-radius:  10px;
+        border-bottom-left-radius: 10px;
+        background: none;
+        border: 1px solid white;
+        color: white;
+}
+
+.month-button{
+        cursor: pointer;
+        border-top-right-radius:  10px;
+        border-bottom-right-radius: 10px;
+        background: #2a5298;
+        border: white;
+        color: white;
+        font-size: 28px;
+        box-shadow: 0px 1px 1px 0px black;
+        transition: background-color  0.3 ease;
+}
+.month-button:hover{
+        background-color: #4f7dcc;
+}
+
+
+/* ナビゲーションバー */
+.nav {
+background-color: none;
+padding: 15px 20px;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+gap: 20px;
+}
+
+.link {
+background-color:#2a5298;
+cursor: pointer;
+color: white;
+text-decoration: none;
+font-size: 18px;
+padding: 8px 16px;
+border-radius: 5px;
+transition: background-color 0.3s ease;
+}
+
+.link:hover {
+color: white;
+background-color: #4f7dcc;
+
+}
+
+/* ログアウトボタン */
+.logout-form {
+margin-left: auto;
+}
+
+.logout-button {
+background-color: #d9534f;
+color: white;
+border: none;
+padding: 10px 20px;
+font-size: 14px;
+cursor: pointer;
+border-radius: 5px;
+transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+background-color: #c9302c;
+}
+
+/* 見出しのスタイル */
+.main h2 {
+text-align: center;
+color:white; /* メインカラー（青） */
+font-size:36px;
+
+
+}
+.main ul{
+margin-left:10px;
+}
+
+
+.main h3 {
+color: white; /* 濃いめの文字色 */
+font-size: 20px;
+margin-bottom: 10px;
+border-bottom: 2px solid white; /* 青いラインで区切る */
+display: inline-block;
+padding-bottom: 5px;
+}
+
+/* テーブル全体のスタイル */
+.main table {
+width: 90%;
+border-collapse: collapse; /* セルの隙間をなくす */
+margin-bottom: 20px;
+background:  #2a5298;/* 背景を白に */
+border-radius: 8px;
+margin: auto;
+box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* 軽い影をつける */
+}
+
+.main th, 
+.main td {
+font-size: 20px;
+text-align: left;
+padding: 12px 15px;
+border-bottom: 1px solid #ddd; /* 下線を追加 */
+}
+
+.main th {
+font-size: 20px;
+background-color: #2a5298; /* ヘッダーの背景を青に */
+color: #fff; /* ヘッダーの文字色を白に */
+font-weight: bold;
+}
+.top-left{
+        border-top-left-radius: 10px ;
+
+}
+.top-right{
+        border-top-right-radius: 10px;
+}
+.main h3{
+        margin-left: 50px;
+}
+
+/* 勤怠合計と給料部分 */
+.main li {
+font-size: 20px;
+margin-top: 0px;
+margin-bottom: 0px;
+}
+
+.main p strong {
+font-weight: bold;
+}
+
+

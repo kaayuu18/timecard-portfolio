@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- 従業員ごとのシフトと勤怠記録を表示する。 -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>シフト勤怠確認用ーページ</title>
+        <link rel="stylesheet" th:href="@{/css/shift-kintai.css}">
+    </head>
+    <body>
+        <div class="main">
+            <div class="nav">
+                <a th:href="@{http://localhost:8080/timecard}" class="link">タイムカード</a>
+                <a th:href="@{http://localhost:8080/employee/form}" class="link">シフト/勤怠記録確認</a>
+              </div>
+            <div class="month-select">
+                <form th:action="@{/employee/shiftkintaiinfo}" method="post">
+                    <input type="hidden" name = "id" th:value="${person.id}">
+                    <input type="month" name="month"  th:value="${date}" th:text="${date}" class="month">
+                    <button type="submit">ボタン</button>
+                </form>
+            </div>
+            <ul>
+                <li>従業員ID:<span th:text="${person.id}" class="person-span"></span></li>
+                <li>名前:<span th:text="${person.name}" class="person-span"></span></li>
+            </ul>
+            <div class="info-table">
+                <table>
+                    <caption>勤怠記録確認</caption>
+                    <thead>
+                        <tr><th class="top-left">日付</th><th>出勤時間</th><th>退勤時間</th><th>休憩時間(分)</th><th class="top-right">勤務時間</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${kintailist}">
+                        <td th:text="${#temporals.format(item.date,'MM/dd')}"></td>
+                        <td th:text="${#temporals.format(item.go,'HH:mm')}"></td>
+                        <td th:text="${#temporals.format(item.out,'HH:mm')}"></td>
+                        <td th:text="${item.breakTime}"></td>
+                        <td th:text="${item.workingHours}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table>
+                    <caption>シフト確認</caption>
+                    <thead>
+                        <tr><th class="top-left">日付</th><th>出勤時間</th><th>退勤時間</th><th class="top-right">休憩時間(分)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item :${shiftlist}">
+                        <td th:text="${#temporals.format(item.date,'MM/dd')}"></td>
+                        <td th:text="${#temporals.format(item.go,'HH:mm')}"></td>
+                        <td th:text="${#temporals.format(item.out,'HH:mm')}"></td>
+                        <td th:text="${item.breakTime}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </body>
+</html>

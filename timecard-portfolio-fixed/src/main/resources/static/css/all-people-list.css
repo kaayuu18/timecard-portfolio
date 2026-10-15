@@ -1,0 +1,168 @@
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #2a5298;
+    color: #ffffff;
+    }
+    
+    .main {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1e3c72;
+    border-radius: 10px;
+    }
+    
+    
+    /* ナビゲーションバー */
+    .nav {
+        background-color: none;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+        }
+        
+        .link {
+        background-color:#2a5298;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        }
+        
+        .link:hover {
+        color: white;
+        background-color: #4f7dcc;
+        
+        }
+    
+    /* ログアウトボタン */
+    .logout-form {
+    margin-left: auto;
+    }
+    
+    .logout-button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    }
+    
+    .logout-button:hover {
+    background-color: #c9302c;
+    }
+    
+    
+    h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    }
+    
+    
+    /* 検索フォーム */
+    .search-form-div{
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .search-form {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    }
+    
+    
+    .search-form form {
+    display: flex;
+    gap: 10px;
+    }
+    
+    .search-form input {
+    padding: 8px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    }
+    
+    .serch-form-button {
+    font-size:18px;
+    padding: 8px 16px;
+    background-color: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    }
+    
+    .serch-form-button:hover {
+    background-color: #518af4;
+    }
+    
+    /* 従業員リストテーブル */
+    .people-list {
+    margin-top: 20px;
+    }
+    
+    .people-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size:18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    }
+    
+    .people-table th, .people-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    }
+    
+    .people-table th {
+    background-color: #2a5298;
+    color: white;
+    }
+    td button{
+        border-radius: 8px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        transition: all 0.3s ease;
+    }
+    td button:hover{
+      background-color: green;
+      transform: scale(1.2);
+    }
+    
+    
+    
+    .people-link {
+    color: #2a5298;
+    text-decoration: none;
+    }
+    
+    .people-link:hover {
+    text-decoration: underline;
+    }
+    

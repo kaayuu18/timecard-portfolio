@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- <link rel="stylesheet" th:href="@{/css/find.css}"> -->
+      <link rel="stylesheet" href="../static/css/find.css">
+        <title>従業員検索</title>
+    </head>
+    <body>
+      <div class="main">
+        <div clsss="nav">
+          <a th:href="@{http://localhost:8080/timecard}" class="link">タイムカード</a>
+          <a th:href="@{http://localhost:8080/admin/employee-list}" class="link">一覧に戻る</a>
+          <form th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit" name="logout" class="logout-button"> ログアウト</button>
+          </form>
+        </div>
+        <div class="people-list">
+          <table class="people-table">
+          <thead>
+            <tr><th>ID</th><th>名前</th><th>年齢</th><th>電話番号</th><th>メールアドレス</th></tr>
+          </thead>
+          <tbody>
+            <tr th:each="item : ${data}">
+              <td th:text="${item.id}"></td>
+              <td th:text="${item.name}"></td>
+              <td th:text="${item.age}"></td>
+              <td th:text="${item.phoneNum}"></td>
+              <td th:text="${item.mail}"></td>
+              
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </body>
+</html>
