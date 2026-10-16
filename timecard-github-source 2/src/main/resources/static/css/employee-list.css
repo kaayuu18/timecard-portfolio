@@ -1,0 +1,138 @@
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #2a5298;
+    /* background-image: url("../image/image.png"); */
+    width: 1000px;
+    height:1200px;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+button,a{
+    cursor: pointer;
+}
+.nav {
+    background-color: none;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    }
+    
+    .link {
+    background-color:#2a5298;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    }
+    
+    .link:hover {
+    color: white;
+    background-color: #4f7dcc;
+    
+    }
+.main{
+    position: relative;
+    background-color: #1e3c72;
+    width: 1000px;
+    margin: auto;
+    text-align: center;
+    border-radius: 30px;
+    padding-bottom:  100px;
+    padding-top: 10px;
+}
+.employee-form{
+    margin: auto;
+    margin-top: 30px;
+    
+}
+.employee-form label{
+    font-size:24px;
+}
+.employee-form input{
+    border-radius: 8px;
+    font-size:24px;
+    text-align: center;
+}
+.error{
+    font-size:18px;
+    color:red;
+}
+.employee-form button{
+    background-color: green;
+    border-radius: 5px;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    color:white;
+    padding:3px 15px 3px 15px;
+    margin-bottom: 50px;
+
+}
+.employee-form button:hover{
+    transform:scale(1.1);
+}
+
+
+li{
+    list-style: none;
+    margin-top: 10px;
+    
+}
+
+
+.link:hover{
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.employee-table{
+    width: 50%;
+    margin: auto;
+    color:white;
+    border-collapse: collapse;
+    font-size:24px
+    
+}
+.employee-table th{
+    border-bottom: 2px solid white;
+    padding-top:5px;
+    padding-bottom: 5px;
+    background-color:#2a5298;
+    color: white;
+    
+    
+    
+}
+.employee-table td{
+    font-size:24px;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    background-color: #1e3c72;
+    font-size: 24px;
+
+}
+.employee-table tr{
+    background-color: #2a5298;
+}
+
+.top-left{
+    border-top-left-radius: 10px;
+}
+.top-right{
+    border-top-right-radius: 10px;
+}
+.employee-table button{
+    background:none;
+    width: 100%;
+    border: none;
+    color: white;
+    font-size: 18px;
+    transition: all 0.3s ease;
+
+}
+.employee-table button:hover{
+    transform: scale(1.1);
+}

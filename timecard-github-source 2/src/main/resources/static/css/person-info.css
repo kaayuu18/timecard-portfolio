@@ -1,0 +1,321 @@
+body{
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+background-color: #2a5298;
+/* background-image: url("../image/image.png"); */
+width: 80%;
+height:1200px;
+margin: auto;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.nav {
+background-color: none;
+padding: 15px 20px;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+gap: 20px; /*要素同士の間隔 */
+}
+
+.link {
+background-color:#2a5298;
+cursor: pointer;
+color: white;
+text-decoration: none;
+font-size: 18px;
+padding: 8px 16px;
+border-radius: 5px;
+transition: background-color 0.3s ease;
+}
+
+.link:hover {
+color: white;
+background-color: #4f7dcc;
+
+}
+.logout-form {
+margin-left: auto;
+}
+
+.logout-button {
+background-color: #d9534f;
+color: white;
+border: none;
+padding: 10px 20px;
+font-size: 14px;
+cursor: pointer;
+border-radius: 5px;
+transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+background-color: #c9302c;
+            }
+.salary-button{
+            cursor: pointer;
+            background-color: #2a5298;
+            border: none;
+            font-size: 18px;
+            color:white;
+            padding:10px 20px;
+            border-radius: 5px;
+}
+.salary-button:hover{
+            background-color: #4f7dcc;
+}
+.main{
+position: absolute;
+background-color: #1e3c72;
+width: 100%;
+margin: auto;
+text-align: center;
+border-radius: 30px;
+padding-bottom:  100px;
+padding-top: 10px;
+}
+
+.delete-button{
+border: none;
+font-size: 20px;
+background-color:#2a5298;
+padding: 10px;
+border-radius: 10px;
+color: white;
+margin-top: 20px;
+margin-bottom: 100px;
+transition: background 0.3s ease;
+}
+.delete-button:hover{
+            background-color: red;
+
+}
+.editbutton{
+cursor: pointer;
+float: left;
+margin-left: 20px;
+text-align: center;
+font-size: 20px;
+border: none;
+background-color:#2a5298;
+padding: 10px 40px 10px 40px;
+border-radius: 10px;
+color: white;
+margin-top: 10px;
+margin-bottom: 100px;
+transition: background 0.3s ease;    
+}
+.editbutton:hover{
+            background-color: rgb(0, 100, 15); 
+}
+.people-table1{
+width: 90%;
+border-collapse: collapse; /* セルの間の隙間をなくす */
+margin-top: 20px;
+font-family: Arial, sans-serif;
+color: white;
+margin: auto;
+margin-bottom: 20px;
+position: relative;
+border: none;
+margin-top: 30px;
+margin-bottom: 100px;
+}
+.people-table1 tr{
+border-collapse: collapse;
+
+
+}
+.people-table1 input{
+border: none;
+background: none;
+font-size: 30px;
+color: white;
+text-align: center;
+}
+.people-table1 td {
+color: white;
+
+padding: 10px 30px 10px 30px;
+text-align: center; /* 中央揃え */
+font-size: 20px;
+border-bottom:  2px solid white;
+border-radius: 15px;
+}
+.people-table1 th {
+padding: 10px 30px 10px 30px;
+font-size: 20px;
+background-color:#2a5298;
+color: white; /* 文字色 */
+}
+
+
+.people-table {
+width: 90%;
+border-collapse: collapse; /* セルの間の隙間をなくす */
+margin-top: 20px;
+font-family: Arial, sans-serif;
+border-bottom: 2px solid white;
+margin: auto;
+
+
+
+}
+.people-table th {
+padding: 10px 30px 10px 30px;
+font-size: 20px;
+background-color:#2a5298;
+color: white; /* 文字色 */
+}
+.top-left{
+border-top-left-radius: 10px;
+}
+.top-right{
+border-top-right-radius: 10px;
+
+}
+/* テーブルのデータセル */
+.people-table td {
+color: white;
+
+padding: 10px 30px 10px 30px;
+text-align: center; /* 中央揃え */
+font-size: 20px;
+border-bottom:  2px solid white;
+border-radius: 15px;
+}
+
+/* ダイアログ */
+.people-form-dialog{
+position: fixed;
+width: 500px;
+padding: 10px;
+top:50%; /*ダイアログの左上を基準にして高さを合わせる*/
+left:50%;/*ダイアログの左上を基準にして高さを合わせる*/
+transform: translate(-50%,-50%);/*ダイアログの大きさの半分だけ戻して調整、横幅高さ*/
+background-color: #1e3c72;
+border-radius: 10px;
+z-index: 1000;/*要素の重なり順を決める。数字が高いと他の要素より前面に表示される*/
+box-shadow: 0 4px 10px black;
+font-size: 30px;
+}
+.people-form-dialog h2{
+border-bottom: 2px solid white;
+color:white;
+font-size:40px
+
+}
+.delete-dialog-main{
+color: white;
+
+}
+
+.delete-form-row{
+display: flex; /* Flexboxで横並びに */
+margin-bottom: 15px;
+text-align: center;
+}
+span{
+display: block;
+text-align-last: justify;
+font-size: 40px;
+width: 40%;
+margin-right: 10px;
+margin-left: 10px;
+border-collapse: collapse;
+}
+.delete-dialog-span{
+text-align: center;
+color: white;
+
+}
+.person-delete-button,.person-cancel-button{
+font-size: 20px;
+border-radius: 10px;
+padding:10px 20px 10px 20px;
+color:white;
+margin: 20px;
+border: none;
+}
+.person-delete-button{
+background-color: green;
+
+}
+.person-cancel-button{
+background-color: red;
+
+}
+.edit-overlay{
+position: absolute;
+top:0;
+left:0;
+right: 0;
+bottom: 0;
+background: rgba(22, 1, 1, 0.5);
+
+display: none;
+
+}
+.edit-dialog{
+position: fixed;
+top:50%;
+left:50%;
+transform: translate(-50%,-50%);
+width: 50%;
+background-color: #2a5298;
+color: white;
+font-size:clamp(18px,2vw,36px);
+border-radius: 10px;
+}
+.dialog-div label{
+display: inline-block;
+width: 35%;
+font-size:clamp(18px,2vw,36px);
+text-align-last: right;
+left:10px;
+
+}
+.dialog-div{
+width: 80%;
+margin-top: 10px;
+margin-bottom: 10px;
+
+}
+.dialog-input{
+padding-top:10px;
+padding-bottom:10px;
+border-radius: 10px;
+color:white;
+text-align: center;
+background: none;
+border:1px solid rgb(164, 164, 164);
+font-size:clamp(14px,2vw,24px);
+width: 50%;
+}
+.dialog-button{
+            margin: auto;
+
+            
+}
+.closeeditdialogbutton,.edit-submit-button{
+            font-size:clamp(20px,4vw,40px);
+            border-radius: 10px;
+            padding:10px;
+            color: white;
+            transition: background 0.3s ease;
+            margin: 10px;
+}
+.closeeditdialogbutton{
+            background-color: rgb(254, 65, 65);
+
+
+}
+.edit-submit-button{
+            background-color: green;
+}
+.closeeditdialogbutton:hover{
+            background-color: rgb(255, 0, 0);
+}
+.edit-submit-button:hover{
+            background-color: rgb(5, 254, 5);
+
+}

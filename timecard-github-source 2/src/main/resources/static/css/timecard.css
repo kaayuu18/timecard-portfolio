@@ -1,0 +1,172 @@
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #2a5298;
+     /* background-image: url('../img/image.jpeg'); */
+    
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.main{
+    backdrop-filter: blur(10px);
+    position: relative;
+    background-color:#1e3c72;
+    width:80%;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+    border-radius: 30px;
+    padding-bottom:  100px;
+    padding-top: 10px;
+}
+.nav {
+    background-color: none;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    }
+    
+    .link {
+    background-color:#2a5298;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    }
+    
+    .link:hover {
+    color: white;
+    background-color: #4f7dcc;
+    
+    }
+
+
+.date{
+    color: white;
+    font-size:clamp(30px,5vw,90px);
+}
+.clock{
+    font-size:clamp(30px,5vw,90px);
+    color: white;
+}
+.timecardform{
+    width: 80%;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+}
+input{
+    background: none;
+    border:2px solid white;
+    color: white;
+    border-radius: 10px;
+    font-size: 30px;
+    width: 60%;
+    height: 80px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+input ::placeholder{
+    color: gainsboro;
+    letter-spacing: 2px;
+}
+.error{
+    color:red;
+    font-size: 30px;
+    font-weight: bold;
+}
+.timecard-input{
+    margin-bottom: 20px;
+}
+.btn{
+    width: 100%;
+    margin: auto;
+}
+.timecard button{
+    
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+    margin:10px;
+    width: 40%;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    font-size: 40px;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px 0px black;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+    
+}
+.timecard button:hover{
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.out{
+    background-color: rgba(2, 245, 2, 0.351);
+}
+.out:hover{
+    background-color: rgb(22, 255, 22);
+}
+.go{
+    background-color: rgba(255, 0, 0, 0.53);
+}
+.go:hover{
+    background-color: red;
+}
+.breakstart{
+    background-color:rgba(255, 200, 0, 0.586);
+}
+.breakstart:hover{
+    background-color:rgb(255, 200, 0);
+}
+.breakend{
+    background-color: rgba(2, 204, 255, 0.542);
+}
+.breakend:hover{
+    background-color: rgb(2, 204, 255);
+}
+
+
+/* テーブルの基本スタイル */
+.table {
+    width: 80%;
+    border-collapse: collapse; /* セルの間の隙間をなくす */
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    border-bottom: 2px solid white;
+    margin: auto;
+    position: relative;
+    box-shadow: 0px 3px 3px 0px black;
+    
+}
+.table th {
+    padding: 10px 30px 10px 30px;
+    font-size:clamp(8px,1.5vw,20px);
+    background-color:#2a5298;
+    color: white;
+}
+.top-left{
+    border-top-left-radius: 10px;
+}
+.top-right{
+    border-top-right-radius: 10px;
+
+}
+/* テーブルのデータセル */
+.table td {
+    color: white;
+
+    padding: 10px 30px 10px 30px;
+    text-align: center; /* 中央揃え */
+    font-size:clamp(8px,1.5vw,20px);
+    border-bottom:  2px solid white;
+    border-radius: 15px;
+}

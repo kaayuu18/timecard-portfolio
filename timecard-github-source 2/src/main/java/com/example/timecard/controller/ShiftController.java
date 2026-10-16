@@ -1,0 +1,174 @@
+package com.example.timecard.controller;
+
+// シフト登録フォームを受け取り、シフトの追加・修正・削除を行う。
+
+
+
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.timecard.entity.Kintai;
+import com.example.timecard.entity.Shift;
+import com.example.timecard.repository.ShiftRepository;
+import com.example.timecard.repository.dao.KintaiDAOPersonImpl;
+import com.example.timecard.repository.dao.PersonDAOPersonImpl;
+import com.example.timecard.repository.dao.ShiftDAOPersonImpl;
+
+import jakarta.transaction.Transactional;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@Controller
+public class ShiftController {
+    @Autowired
+    com.example.timecard.repository.PersonRepository people;
+    @Autowired
+    ShiftRepository sRepository;
+    @Autowired
+    PersonDAOPersonImpl personDao;
+    @Autowired
+    KintaiDAOPersonImpl kintaiDao;
+    @Autowired
+    ShiftDAOPersonImpl shiftDao;
+@GetMapping("/shiftedit")
+public String getMethodName(Model model) {
+    List<Shift> shifts = new ArrayList<>();
+    model.addAttribute("shift", shifts);
+    model.addAttribute("records", sRepository.findAll(org.springframework.data.domain.Sort.by("date", "id")));
+    model.addAttribute("people", people.findAll());
+    return "shiftedit";
+}
+@Transactional
+@PostMapping("/shiftedit")
+public String edit(Model model,@RequestParam("shiftlist") String list ) {
+    System.out.println(list);
+    System.out.println(list.length());
+    String[] str = list.split(",");
+    System.out.println("文字列は"+str.length);
+    for(int i = 0; i < str.length; i = i + 4){
+        Shift shift = new Shift();
+        shift.setPerson(personDao.findById(Integer.parseInt(str[i])));
+        shift.setDate(LocalDate.parse(str[i + 1]));
+        shift.setGo(LocalTime.parse(str[i + 2]));
+        shift.setOut(LocalTime.parse(str[i + 3]));
+        sRepository.saveAndFlush(shift);
+    }
+return "redirect:/shiftedit";
+
+}
+@Transactional
+@PostMapping("/admin/addshift")
+public String postMethodName(@Validated @ModelAttribute Shift shift, BindingResult result1, Model model) {
+    String link = String.format("?month=%d&day=%d",shift.getDate().getMonthValue(),shift.getDate().getDayOfMonth());
+    //-------------------------------ダイアログからidを入力し忘れてないか検証
+    if (!result1.hasErrors() && shift.getPerson() != null) { 
+    sRepository.saveAndFlush(shift);
+    return "redirect:/dayClick" + link;
+    }
+    else{
+        System.out.println("見つかりません");
+        List<Shift> list = shiftDao.findByDate(shift.getDate());
+        model.addAttribute("str",shift.getDate());
+        model.addAttribute("date",list);
+        model.addAttribute("addclick","shiftedit");
+
+        return "kanri";
+    }
+}
+
+
+@PostMapping("/admin/editshift")
+public String editPost(
+    @RequestParam("date") String d,
+    @RequestParam("id") String id,
+    @RequestParam(name = "name",required = false) String name,
+    @RequestParam(name = "go",required = false) String start_time,
+    @RequestParam(name = "out",required = false) String end_time,
+    @RequestParam(name = "breaktime" ,required = false,defaultValue = "0") String breakTime,Model model) {
+        LocalDate date = LocalDate.parse(d);
+        String link = String.format("?month=%d&day=%d",date.getMonthValue(),date.getDayOfMonth());
+    System.out.println(name);
+    Long shiftId = Long.parseLong(id);
+    Shift shift = shiftDao.findById(shiftId);
+    shift.setId(shiftId);
+    shift.setPerson(personDao.findByName(name));
+    if( start_time != null && !start_time.isBlank()){ 
+    LocalTime go = LocalTime.parse(start_time);
+    shift.setGo(go);}
+    if(end_time != null && !end_time.isBlank()){ 
+    LocalTime out = LocalTime.parse(end_time);
+    shift.setOut(out);}
+    if(breakTime != null && !breakTime.isBlank()){
+        shift.setBreakTime(Double.parseDouble(breakTime));
+    }
+    sRepository.saveAndFlush(shift);
+    model.addAttribute("error", "hello");
+    return "redirect:/dayClick" + link;
+}
+
+@PostMapping("/admin/deleteshift")
+public String removePost(
+    @RequestParam("date") String d,
+    @RequestParam("id") String id,
+    @RequestParam("name") String name,
+    @RequestParam(name = "go",required = false) String start_time,
+    @RequestParam(name = "out",required = false) String end_time,
+    @RequestParam(name = "breaktime" ,required = false) String breakTime
+    ) {
+        LocalDate date = LocalDate.parse(d);
+        String link = String.format("?month=%d&day=%d",date.getMonthValue(),date.getDayOfMonth());
+        System.out.println(name);
+        Long shiftId = Long.parseLong(id);
+        sRepository.deleteById(shiftId);
+        return "redirect:/dayClick" + link;
+        
+}
+
+    @PostMapping("/admin/shifts/save")
+    @Transactional
+    public String saveShift(@RequestParam(required=false) Long id, @RequestParam Long person,
+            @RequestParam LocalDate date, @RequestParam LocalTime go, @RequestParam LocalTime out,
+            @RequestParam(defaultValue="0") int breakMinutes,
+            org.springframework.web.servlet.mvc.support.RedirectAttributes flash) {
+        if (date == null || go == null || out == null || !out.isAfter(go) || breakMinutes < 0
+                || breakMinutes > java.time.Duration.between(go, out).toMinutes()) {
+            flash.addFlashAttribute("message", "時刻と休憩時間を確認してください。同日内の勤務を指定してください。");
+            return "redirect:/shiftedit";
+        }
+        var employee = personDao.findById(person);
+        if (employee == null) {
+            flash.addFlashAttribute("message", "従業員が見つかりません");
+            return "redirect:/shiftedit";
+        }
+        Shift shift = id == null ? new Shift() : sRepository.findById(id).orElseThrow(() ->
+            new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND));
+        shift.setPerson(employee); shift.setDate(date); shift.setGo(go); shift.setOut(out);
+        shift.setBreakTime((double)breakMinutes);
+        sRepository.saveAndFlush(shift);
+        flash.addFlashAttribute("message", "シフトを保存しました");
+        return "redirect:/shiftedit";
+    }
+    @PostMapping("/admin/shifts/delete")
+    @Transactional
+    public String deleteShift(@RequestParam Long id, org.springframework.web.servlet.mvc.support.RedirectAttributes flash) {
+        sRepository.deleteById(id);
+        flash.addFlashAttribute("message", "シフトを削除しました");
+        return "redirect:/shiftedit";
+    }
+}
+
+
+
